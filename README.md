@@ -1,5 +1,5 @@
 
-PHP Foundation - School of NET
+Zend2 Basico - School of NET
 ==============================
 
 Visão geral
