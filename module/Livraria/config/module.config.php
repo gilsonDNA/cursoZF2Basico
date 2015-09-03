@@ -24,9 +24,10 @@ return array(
             'livraria-admin' => array(
                 'type' => 'Segment' ,
                 'options' => array(
-                  'route' => '/admin/[:controller[/:action]]',
+                  'route' => '/admin/[:controller[/:action][/page/:page]]',
                   'defaults' => array(
                       'action' => 'index',
+                      'page' => 1
                   ),
                 ),
             ),
