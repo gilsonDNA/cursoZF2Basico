@@ -3,6 +3,7 @@
 namespace LivrariaAdmin\Form;
 
 use Zend\InputFilter\InputFilter;
+
 class CategoriaFilter extends InputFilter{
     
     public function __construct() {
@@ -10,14 +11,14 @@ class CategoriaFilter extends InputFilter{
             'name' => 'nome',
             'required' => true,
             'filters' => array(
-                array('name' => 'StringTags'),
+                array('name' => 'StripTags'),
                 array('name' => 'StringTrim')
             ),
             'validators' => array(
                 array(
                     'name' => 'NotEmpty',
                     'options' => array(
-                        'messages' => array('Não pode ser em branco'),
+                        'messages' => array('isEmpty' => 'Nome não pode ser em branco'),
                     )
                 )
             )
