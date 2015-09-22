@@ -64,10 +64,10 @@ class Categoria extends \Livraria\Entity\Categoria implements \Doctrine\ORM\Prox
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'nome');
+            return array('__isInitialized__', 'id', 'nome', 'livros');
         }
 
-        return array('__isInitialized__', 'id', 'nome');
+        return array('__isInitialized__', 'id', 'nome', 'livros');
     }
 
     /**
@@ -241,6 +241,17 @@ class Categoria extends \Livraria\Entity\Categoria implements \Doctrine\ORM\Prox
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'toArray', array());
 
         return parent::toArray();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLivros()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLivros', array());
+
+        return parent::getLivros();
     }
 
 }

@@ -22,7 +22,7 @@ abstract class AbstractService  {
     public function insert(array $data){
         $entity = new $this->entity($data);
         $entity = Configurator::configure($entity, $data);
-        $entity->setNome($data['nome']);
+        //$entity->setNome($data['nome']);
         
         $this->em->persist($entity);
         $this->em->flush();
@@ -34,7 +34,7 @@ abstract class AbstractService  {
     public function update(array $data ){
         $entity = $this->em->getReference($this->entity, $data['id']);
         $entity = Configurator::configure($entity, $data);
-        $entity->setNome($data['nome']);
+        //$entity->setNome($data['nome']);
         
         $this->em->persist($entity);
         $this->em->flush();
