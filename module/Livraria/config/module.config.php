@@ -40,6 +40,16 @@ return array(
                   ),
                 ),
             ),
+            'livraria-admin-auth' => array(
+                'type' => 'Literal' ,
+                'options' => array(
+                  'route' => '/admin/auth',
+                  'defaults' => array(
+                      'action' => 'index',
+                      'controller' => 'livraria-admin/auth'
+                  ),
+                ),
+            ),
            
     
         ),
@@ -50,6 +60,9 @@ return array(
             'Livraria\Controller\Index' => 'Livraria\Controller\IndexController',
             'categorias' => 'LivrariaAdmin\Controller\CategoriasController',
             'livros' => 'LivrariaAdmin\Controller\LivrosController',
+            'users' => 'LivrariaAdmin\Controller\UsersController',
+            'livraria-admin/auth' => 'LivrariaAdmin\Controller\AuthController',
+            
         ),
     ),
     'view_manager' => array(

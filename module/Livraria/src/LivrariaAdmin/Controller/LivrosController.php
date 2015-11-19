@@ -19,8 +19,7 @@ class LivrosController extends CrudController {
         
         
         $form = $this->getServiceLocator()->get($this->form);
-        var_dump($form);
-        die;
+       
         $request = $this->getRequest();
         if($request->isPost()){
             
@@ -29,7 +28,7 @@ class LivrosController extends CrudController {
                 //insere no banco
                 $service = $this->getServiceLocator()->get($this->service);
                 
-                
+              
                 $service->insert($request->getPost()->toArray());
                 
                 return $this->redirect()->toRoute($this->route, array('controller' => $this->controller));
@@ -56,8 +55,7 @@ class LivrosController extends CrudController {
             $form->setData($request->getPost());
             if($form->isValid()){
                 
-                 $service = $this->getServiceLocator()->get($this->service);
-                
+                $service = $this->getServiceLocator()->get($this->service);
                 
                 $service->update($request->getPost()->toArray());
                 

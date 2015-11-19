@@ -13,8 +13,11 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Livraria\Model\CategoriaTable;
 use Livraria\Service\Categoria as CategoriaService;
+use Livraria\Service\User as UserService;
 use Livraria\Service\Livro as LivroService;
 use LivrariaAdmin\Form\Livro as LivroFrm;
+use LivrariaAdmin\Form\User as UserFrm;
+use Livraria\Auth\Adapter as AuthAdapter;
 
 class Module
 {
@@ -56,6 +59,9 @@ class Module
                 'Livraria\Service\Livro' => function($service){
                     return new LivroService($service->get('Doctrine\ORM\EntityManager'));
                 } ,
+                'Livraria\Service\User' => function($service){
+                    return new UserService($service->get('Doctrine\ORM\EntityManager'));
+                } ,
                 'LivrariaAdmin\Form\Livro' => function($service){
                     $em = $service->get('Doctrine\ORM\EntityManager');
                     $repository = $em->getRepository('Livraria\Entity\Categoria');
@@ -63,7 +69,17 @@ class Module
        
                     
                     return new LivroFrm(null, $categorias);
-                }   
+                } ,
+                'LivrariaAdmin\Form\User' => function($service){
+                    $em = $service->get('Doctrine\ORM\EntityManager');
+                    $repository = $em->getRepository('Livraria\Entity\User');
+                    return new UserFrm(null);
+                },
+                'Livraria\Auth\Adapter' => function($service){
+                    $em = $service->get('Doctrine\ORM\EntityManager');
+                    
+                    return new AuthAdapter($em);
+                }     
             ),
                     
         );

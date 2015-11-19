@@ -28,7 +28,7 @@ class Livro {
     /**
      * @ORM\ManyToOne(targetEntity="Livraria\Entity\Categoria" , inversedBy="livro")
      * @ORM\JoinColumn(name="categoria_id" , referencedColumnName="id")
-     * @var type 
+     * @var Categoria 
      */
     protected $categoria;
     
