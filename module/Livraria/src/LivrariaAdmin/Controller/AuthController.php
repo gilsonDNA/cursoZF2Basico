@@ -32,13 +32,13 @@ class AuthController extends AbstractActionController{
                 $authAdapter->setPassword($data['password']);
                 
                 $result = $auth->authenticate($authAdapter);
-                var_dump($result->isValid());
-                die();
+                
                 if($result->isValid()){
                     $sessionStorage->write($auth->getIdentity()['user'], null);
                     return $this->redirect()->toRoute("livraria-admin", array('controller' => 'categorias'));
                 }else{
                     $error = true;
+                    
                 }
                 
             }
@@ -46,5 +46,14 @@ class AuthController extends AbstractActionController{
             
         }
         return new ViewModel(array('form' => $form, 'error' => $error));
+    }
+    
+    public function logoutAction(){
+        
+        $auth = new AuthenticationService;
+        $auth->setStorage(new SessionStorage('LivrariaAdmin'));
+        $auth->clearIdentity();
+        
+        return $this->redirect()->toRoute('livraria-admin-auth');
     }
 }

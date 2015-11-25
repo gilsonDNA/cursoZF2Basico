@@ -11,6 +11,10 @@ namespace Livraria;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\ModuleManager\ModuleManager;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Storage\Session as SessionStorage;
+
 use Livraria\Model\CategoriaTable;
 use Livraria\Service\Categoria as CategoriaService;
 use Livraria\Service\User as UserService;
@@ -40,6 +44,26 @@ class Module
         );
     }
     
+    public function init(ModuleManager $moduleManager){
+        
+        $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
+        $sharedEvents->attach('ZendMvcControllerAbstractActionController', 'dispatch', function($e){
+            
+            $auth = new AuthenticationService;
+            $auth->setStorage(new SessionStorage("LivrariaAdmin"));
+            
+            $controller = $e->getTarget();
+            $matchedRoute = $controller->getEvent()->getRouteMatch()->getMatchedRouteName();
+            
+            if(!$auth->hasIdentity() and ($matchedRoute == "livraria-admin" or $matchedRoute == "livraria-admin-interna")){
+                return $controller->redirect()->toRoute("livraria-admin-auth");
+            }
+            
+        }, 99);
+        
+    }
+
+
     public function getServiceConfig(){
         return array(
             'factories' => array(
@@ -82,6 +106,16 @@ class Module
                 }     
             ),
                     
+        );
+    }
+    
+    
+    public function getViewHelperConfig(){
+        
+        return array(
+            'invokables' => array(
+                'UserIdentity' => 'LivrariaViewHelperUserIdentity'
+            )
         );
     }
 }

@@ -28,12 +28,14 @@ class Adapter implements AdapterInterface{
         
         $repository = $this->em->getRepository("Livraria\Entity\User");
         $user = $repository->findByEmailAndPassword($this->getUsername(), $this->getPassword());
-     
-        if(user){
+        
+       
+        
+        if($user){
             return new Result(Result::SUCCESS, array('user' => $user) , array('OK'));
         }else{
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, null, array());
-        }
+         }
     }
             
     
